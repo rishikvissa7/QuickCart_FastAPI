@@ -44,13 +44,6 @@ def get_me(user: User = Depends(get_current_user)):
 def list_users(db: Session = Depends(get_db), admin: User = Depends(get_admin_user)):
     return db.query(User).all()
 
-@app.get("/admin/users/{user_id}", response_model=UserShow)
-def get_user(user_id: int, db: Session = Depends(get_db), admin: User = Depends(get_admin_user)):
-    user = db.query(User).filter(User.id == user_id).first()
-    if not user:
-        raise HTTPException(status_code=404, detail="User not found")
-    return user
-
 @app.put("/admin/users/{user_id}", response_model=UserShow)
 def update_user(user_id: int, user_update: UserCreate, db: Session = Depends(get_db), admin: User = Depends(get_admin_user)):
     db_user = db.query(User).filter(User.id == user_id).first()
