@@ -155,4 +155,3 @@ def delete_product(product_id: int, db: Session = Depends(get_db), admin: User =
     db.delete(product)
     db.commit()
     return {"message": "Product deleted"}
-
